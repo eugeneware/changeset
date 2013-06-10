@@ -1,6 +1,6 @@
 {
   "name": "changeset",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Library to diff JSON objects and apply diff change sets to objects. Useful with Levelup/LevelDB object synchronization.",
   "main": "index.js",
   "scripts": {
