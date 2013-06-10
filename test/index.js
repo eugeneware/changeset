@@ -43,5 +43,49 @@ describe('changeset', function () {
       done();
     });
 
+  it('should be able to handle basic types', function (done) {
+    var a = 'Eugene';
+    var b = 'Susan';
+
+    var changes = diff(a, b);
+    expect(changes).to.deep.equal([
+      { type: 'put', key: [], value: 'Susan' }
+    ]);
+
+    done();
+  });
+
+  it('should be able to handle nulls', function (done) {
+    var changes;
+
+    changes = diff(null, 'Susan');
+    expect(changes).to.deep.equal([
+      { type: 'put', key: [], value: 'Susan' }
+    ]);
+
+    changes = diff('Eugene', null);
+    expect(changes).to.deep.equal([
+      { type: 'put', key: [], value: null }
+    ]);
+
+    done();
+  });
+
+  it('should be able to handle undefined', function (done) {
+    var changes;
+
+    changes = diff(undefined, 'Susan');
+    expect(changes).to.deep.equal([
+      { type: 'put', key: [], value: 'Susan' }
+    ]);
+
+    changes = diff('Eugene', undefined);
+    expect(changes).to.deep.equal([
+      { type: 'del', key: [] }
+    ]);
+
+    done();
+  });
+
   it('should be able to apply a changeset to an object');
 });

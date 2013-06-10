@@ -10,9 +10,17 @@ function diff(old, new_) {
   return changes;
 }
 
+function delCheck(op) {
+  if (op.type === 'put' && op.value === undefined) {
+    op.type = 'del';
+    delete op.value;
+  }
+  return op;
+}
+
 function compare(path, old, new_) {
   var changes = [];
-  if (typeof old === 'object') {
+  if (old !== null && new_ !== null && typeof old === 'object') {
     var oldKeys = Object.keys(old);
     var newKeys = Object.keys(new_);
 
@@ -29,11 +37,12 @@ function compare(path, old, new_) {
 
     var newKeys_ = _.difference(newKeys, oldKeys);
     newKeys_.forEach(function (k) {
-      changes.push({ type: 'put', key: path.concat(k), value: new_[k] });
+      changes.push(delCheck(
+        { type: 'put', key: path.concat(k), value: new_[k] }));
     });
 
   } else if (old !== new_) {
-    changes.push({ type: 'put', key: path, value: new_ });
+    changes.push(delCheck({ type: 'put', key: path, value: new_ }));
   }
 
   return changes;
