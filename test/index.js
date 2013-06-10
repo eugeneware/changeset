@@ -110,9 +110,46 @@ describe('changeset', function () {
     };
 
     var changes = diff(a, b);
-
     var b_ = diff.apply(changes, a);
     expect(b_).to.deep.equals(b);
+    done();
+  });
+
+  it('should be able to apply a changeset to a value', function (done) {
+    var a = 'Eugene';
+    var b = 'Susan';
+
+    var changes = diff(a, b);
+    var b_ = diff.apply(changes, a);
+    expect(b_).to.deep.equals(b);
+    done();
+  });
+
+  it('should be able to apply a changeset with nulls', function (done) {
+    var changes, b_;
+
+    changes = diff(null, 'Susan');
+     b_ = diff.apply(changes, null);
+    expect(b_).to.deep.equals('Susan');
+
+    changes = diff('Eugene', null);
+     b_ = diff.apply(changes, 'Eugene');
+    expect(b_).to.deep.equals(null);
+
+    done();
+  });
+
+  it('should be able to apply a changeset with undefined', function (done) {
+    var changes, b_;
+
+    changes = diff(undefined, 'Susan');
+     b_ = diff.apply(changes, undefined);
+    expect(b_).to.deep.equals('Susan');
+
+    changes = diff('Eugene', undefined);
+     b_ = diff.apply(changes, 'Eugene');
+    expect(b_).to.deep.equals(null);
+
     done();
   });
 });
