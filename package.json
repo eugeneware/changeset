@@ -1,0 +1,32 @@
+{
+  "name": "changeset",
+  "version": "0.0.0",
+  "description": "Library to diff JSON objects and apply diff change sets to objects. Useful with Levelup/LevelDB object synchronization.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/nharbour/odiff"
+  },
+  "keywords": [
+    "leveldb",
+    "levelup",
+    "json",
+    "diff",
+    "change",
+    "changes",
+    "changeset"
+  ],
+  "author": "Eugene Ware <eugene@noblesamurai.com>",
+  "license": "BSD",
+  "devDependencies": {
+    "chai": "~1.6.1",
+    "mocha": "~1.10.0"
+  },
+  "dependencies": {
+    "deep-equal": "0.0.0",
+    "underscore": "~1.4.4"
+  }
+}
