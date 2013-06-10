@@ -87,5 +87,32 @@ describe('changeset', function () {
     done();
   });
 
-  it('should be able to apply a changeset to an object');
+  it('should be able to apply a changeset to an object', function (done) {
+    var a = {
+      name: 'Eugene',
+      number: 42,
+      tags: ['tag1', 'tag2', 'tag3'],
+      scores: {
+        tetris: 1000,
+        carmageddon: 3
+      }
+    };
+
+    var b = {
+      name: 'Susan',
+      number: 43,
+      tags: ['tag1', 'tag4'],
+      scores: {
+        carmageddon: 3,
+        zelda: 3000
+      },
+      age: 37
+    };
+
+    var changes = diff(a, b);
+
+    var b_ = diff.apply(changes, a);
+    expect(b_).to.deep.equals(b);
+    done();
+  });
 });

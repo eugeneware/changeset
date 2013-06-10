@@ -47,3 +47,55 @@ function compare(path, old, new_) {
 
   return changes;
 }
+
+module.exports.apply = apply;
+function apply(changes, a) {
+  var obj = JSON.parse(JSON.stringify(a));
+  changes.forEach(function (ch) {
+    var ptr, keys, len;
+    switch (ch.type) {
+      case 'put':
+        ptr = obj;
+        keys = ch.key;
+        len = keys.length;
+        if (len) {
+          keys.forEach(function (prop, i) {
+            if (!(prop in ptr)) {
+              ptr[prop] = {};
+            }
+
+            if (i < len - 1) {
+              ptr = ptr[prop];
+            } else {
+              ptr[prop] = ch.value;
+            }
+          });
+        } else {
+          obj = ch.value;
+        }
+        break;
+
+      case 'del':
+        ptr = obj;
+        keys = ch.key;
+        len = keys.length;
+        if (len) {
+          keys.forEach(function (prop, i) {
+            if (!(prop in ptr)) {
+              ptr[prop] = {};
+            }
+
+            if (i < len - 1) {
+              ptr = ptr[prop];
+            } else {
+              delete ptr[prop];
+            }
+          });
+        } else {
+          obj = null;
+        }
+        break;
+    }
+  });
+  return obj;
+}
