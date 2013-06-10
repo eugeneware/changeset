@@ -1,5 +1,4 @@
-var equals = require('deep-equal')
-  , _ = require('underscore');
+var _ = require('underscore');
 // a = old, b = new
 module.exports = diff;
 function diff(old, new_) {
