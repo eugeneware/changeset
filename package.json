@@ -1,6 +1,6 @@
 {
   "name": "changeset",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Library to diff JSON objects into atomic put and delete operations, and apply change sets to objects. Useful with Levelup/LevelDB object synchronization.",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,6 @@
     "mocha": "~1.10.0"
   },
   "dependencies": {
-    "deep-equal": "0.0.0",
     "underscore": "~1.4.4"
   }
 }
