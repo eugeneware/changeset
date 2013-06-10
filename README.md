@@ -67,7 +67,7 @@ var a = {
 };
 
 // apply the changes to a
-var b_ = diff.apply(chanegs, a);
+var b_ = diff.apply(changes, a);
 
 var b = {
   name: 'Susan',
