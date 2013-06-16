@@ -83,3 +83,14 @@ var b = {
 // the transformed object should now equal b
 expect(b_).to.deep.equals(b);
 ```
+
+By default ```apply``` will return a new modified object after applying the
+changeset. If you want to modify the destination, pass true as the third
+parameter:
+
+```
+// apply the changes to a and modify a
+var b_ = diff.apply(changes, a, true);
+// a is now modified, and b_ is the same as a
+expect(b_).to.equal(a);
+```

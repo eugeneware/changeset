@@ -48,12 +48,16 @@ function compare(path, old, new_) {
 }
 
 module.exports.apply = apply;
-function apply(changes, target) {
+function apply(changes, target, modify) {
   var obj;
-  try {
-    obj = JSON.parse(JSON.stringify(target));
-  } catch (err) {
-    obj = undefined;
+  if (modify) {
+    obj = target;
+  } else {
+    try {
+      obj = JSON.parse(JSON.stringify(target));
+    } catch (err) {
+      obj = undefined;
+    }
   }
   changes.forEach(function (ch) {
     var ptr, keys, len;
