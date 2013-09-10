@@ -90,7 +90,7 @@ By default ```apply``` will return a new modified object after applying the
 changeset. If you want to modify the destination, pass true as the third
 parameter:
 
-```
+``` js
 // apply the changes to a and modify a
 var b_ = diff.apply(changes, a, true);
 // a is now modified, and b_ is the same as a
