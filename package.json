@@ -1,6 +1,6 @@
 {
   "name": "changeset",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Library to diff JSON objects into atomic put and delete operations, and apply change sets to objects. Useful with Levelup/LevelDB object synchronization.",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "changeset"
   ],
   "author": "Eugene Ware <eugene@noblesamurai.com>",
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "devDependencies": {
     "chai": "~1.6.1",
     "mocha": "~1.10.0"
