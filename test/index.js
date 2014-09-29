@@ -18,6 +18,8 @@ describe('changeset', function () {
         }
       };
 
+      a.self = a;
+
       var b = {
         name: 'Susan',
         number: 43,
@@ -29,6 +31,9 @@ describe('changeset', function () {
         age: 37
       };
 
+      b.friend = a;
+      b.self = b;
+
       var changes = diff(a, b);
       expect(changes).to.deep.equal([
         { type: 'put', key: ['name'], value: 'Susan' },
@@ -37,7 +42,9 @@ describe('changeset', function () {
         { type: 'del', key: ['tags', '2'] },
         { type: 'del', key: ['scores', 'tetris'] },
         { type: 'put', key: ['scores', 'zelda'], value: 3000 },
-        { type: 'put', key: ['age'], value: 37 }
+        { type: 'put', key: ['self'], value: b },
+        { type: 'put', key: ['age'], value: 37 },
+        { type: 'put', key: ['friend'], value: a }
       ]);
 
       done();
@@ -98,6 +105,8 @@ describe('changeset', function () {
       }
     };
 
+    a.self = a;
+
     var b = {
       name: 'Susan',
       number: 43,
@@ -108,6 +117,9 @@ describe('changeset', function () {
       },
       age: 37
     };
+
+    b.friend = a;
+    b.self = b;
 
     var changes = diff(a, b);
     var b_ = diff.apply(changes, a);
@@ -165,6 +177,8 @@ describe('changeset', function () {
           }
         };
 
+        a.self = a;
+
         var b = {
           name: 'Susan',
           number: 43,
@@ -175,6 +189,9 @@ describe('changeset', function () {
           },
           age: 37
         };
+
+        b.friend = a;
+        b.self = b;
 
         var changes = diff(a, b);
         var b_ = diff.apply(changes, a, true);
