@@ -19,6 +19,7 @@ describe('changeset', function () {
       };
 
       a.self = a;
+      a.scoresAgain = a.scores;
 
       var b = {
         name: 'Susan',
@@ -43,6 +44,7 @@ describe('changeset', function () {
         { type: 'del', key: ['scores', 'tetris'] },
         { type: 'put', key: ['scores', 'zelda'], value: 3000 },
         { type: 'put', key: ['self'], value: b },
+        { type: 'del', key: ['scoresAgain'], },
         { type: 'put', key: ['age'], value: 37 },
         { type: 'put', key: ['friend'], value: a }
       ]);
@@ -106,6 +108,7 @@ describe('changeset', function () {
     };
 
     a.self = a;
+    a.scoresAgain = a.scores;
 
     var b = {
       name: 'Susan',
@@ -178,6 +181,7 @@ describe('changeset', function () {
         };
 
         a.self = a;
+        a.scoresAgain = a.scores;
 
         var b = {
           name: 'Susan',
