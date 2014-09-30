@@ -1,5 +1,5 @@
 var _ = require('underscore');
-// a = old, b = new
+
 module.exports = diff;
 function diff(old, new_) {
   var changes = [];
@@ -21,11 +21,10 @@ function delCheck(op) {
 var comparing = [];
 function compare(path, old, new_) {
   var changes = [];
-  if (
-    old !== null && new_ !== null &&
-    typeof old === 'object' &&
-    !_.contains(comparing, old)
-  ) {
+  if (old !== null && new_ !== null &&
+      typeof old === 'object' &&
+      !_.contains(comparing, old)) {
+
     comparing.push(old);
     var oldKeys = Object.keys(old);
     var newKeys = Object.keys(new_);
