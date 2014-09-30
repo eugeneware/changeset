@@ -1,11 +1,12 @@
 var _ = require('underscore');
-// a = old, b = new
+
 module.exports = diff;
 function diff(old, new_) {
   var changes = [];
 
   changes = changes.concat(compare([], old, new_));
 
+  comparing = [];
   return changes;
 }
 
@@ -17,9 +18,14 @@ function delCheck(op) {
   return op;
 }
 
+var comparing = [];
 function compare(path, old, new_) {
   var changes = [];
-  if (old !== null && new_ !== null && typeof old === 'object') {
+  if (old !== null && new_ !== null &&
+      typeof old === 'object' &&
+      !_.contains(comparing, old)) {
+
+    comparing.push(old);
     var oldKeys = Object.keys(old);
     var newKeys = Object.keys(new_);
 
@@ -49,15 +55,12 @@ function compare(path, old, new_) {
 
 module.exports.apply = apply;
 function apply(changes, target, modify) {
-  var obj;
+  var obj, clone;
   if (modify) {
     obj = target;
   } else {
-    try {
-      obj = JSON.parse(JSON.stringify(target));
-    } catch (err) {
-      obj = undefined;
-    }
+    clone = require("udc");
+    obj = clone(target);
   }
   changes.forEach(function (ch) {
     var ptr, keys, len;

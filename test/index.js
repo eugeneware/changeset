@@ -18,6 +18,9 @@ describe('changeset', function () {
         }
       };
 
+      a.self = a;
+      a.scoresAgain = a.scores;
+
       var b = {
         name: 'Susan',
         number: 43,
@@ -29,6 +32,9 @@ describe('changeset', function () {
         age: 37
       };
 
+      b.friend = a;
+      b.self = b;
+
       var changes = diff(a, b);
       expect(changes).to.deep.equal([
         { type: 'put', key: ['name'], value: 'Susan' },
@@ -37,7 +43,10 @@ describe('changeset', function () {
         { type: 'del', key: ['tags', '2'] },
         { type: 'del', key: ['scores', 'tetris'] },
         { type: 'put', key: ['scores', 'zelda'], value: 3000 },
-        { type: 'put', key: ['age'], value: 37 }
+        { type: 'put', key: ['self'], value: b },
+        { type: 'del', key: ['scoresAgain'], },
+        { type: 'put', key: ['age'], value: 37 },
+        { type: 'put', key: ['friend'], value: a }
       ]);
 
       done();
@@ -98,6 +107,9 @@ describe('changeset', function () {
       }
     };
 
+    a.self = a;
+    a.scoresAgain = a.scores;
+
     var b = {
       name: 'Susan',
       number: 43,
@@ -109,9 +121,16 @@ describe('changeset', function () {
       age: 37
     };
 
+    b.friend = a;
+    b.self = b;
+
+    var clone = require("udc");
+    var bClone = clone(b);
+
     var changes = diff(a, b);
     var b_ = diff.apply(changes, a);
     expect(b_).to.deep.equals(b);
+    expect(b).to.deep.equals(bClone); // Target did not change.
     done();
   });
 
@@ -165,6 +184,9 @@ describe('changeset', function () {
           }
         };
 
+        a.self = a;
+        a.scoresAgain = a.scores;
+
         var b = {
           name: 'Susan',
           number: 43,
@@ -176,10 +198,22 @@ describe('changeset', function () {
           age: 37
         };
 
+        b.friend = a;
+        b.self = b;
+
         var changes = diff(a, b);
         var b_ = diff.apply(changes, a, true);
         expect(b_).to.deep.equals(b);
         expect(b_).to.equal(a);
         done();
+    });
+
+  it('should be able to self-modify and replace an entire object',
+    function(done) {
+      var data = { name: 'Eugene', number: 43 };
+      var change = [ { type: 'put', key: [], value: 'xxx' } ];
+      var obj = diff.apply(change, data, true);
+      expect(obj).to.equal('xxx');
+      done();
     });
 });

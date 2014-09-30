@@ -26,6 +26,7 @@
     "mocha": "~1.10.0"
   },
   "dependencies": {
+    "udc": "^1.0.0",
     "underscore": "~1.4.4"
   }
 }

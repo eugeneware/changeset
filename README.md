@@ -2,6 +2,8 @@
 
 Generate diff changesets for javascript objects, decomposing diffs into a series of puts and delete operations. The format is similar to the [levelup](https://github.com/rvagg/node-levelup) [batch](https://github.com/rvagg/node-levelup#batch) operation list for bulk operations.
 
+Handles circular references of Objects and Arrays.
+
 [![build status](https://secure.travis-ci.org/eugeneware/changeset.png)](http://travis-ci.org/eugeneware/changeset)
 
 # Example
