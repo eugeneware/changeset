@@ -55,7 +55,14 @@ function compare(path, old, new_) {
 }
 
 module.exports.apply = apply;
-function apply(changes, obj, modify) {
+function apply(changes, target, modify) {
+  var obj, clone;
+  if (modify) {
+    obj = target;
+  } else {
+    clone = require("udc");
+    obj = clone(target);
+  }
   changes.forEach(function (ch) {
     var ptr, keys, len;
     switch (ch.type) {
