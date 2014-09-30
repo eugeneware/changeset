@@ -182,4 +182,13 @@ describe('changeset', function () {
         expect(b_).to.equal(a);
         done();
     });
+
+  it('should be able to self-modify and replace an entire object',
+    function(done) {
+      var data = { name: 'Eugene', number: 43 };
+      var change = [ { type: 'put', key: [], value: 'xxx' } ];
+      var obj = diff.apply(change, data, true);
+      expect(obj).to.equal('xxx');
+      done();
+    });
 });
