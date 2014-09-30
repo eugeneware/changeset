@@ -124,9 +124,13 @@ describe('changeset', function () {
     b.friend = a;
     b.self = b;
 
+    var clone = require("udc");
+    var bClone = clone(b);
+
     var changes = diff(a, b);
     var b_ = diff.apply(changes, a);
     expect(b_).to.deep.equals(b);
+    expect(b).to.deep.equals(bClone); // Target did not change.
     done();
   });
 
