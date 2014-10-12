@@ -26,22 +26,22 @@ function compare(path, old, new_) {
       !_.contains(comparing, old)) {
 
     comparing.push(old);
-    var oldKeys = Object.keys(old);
-    var newKeys = Object.keys(new_);
+    var oldKeys = _.keys(old);
+    var newKeys = _.keys(new_);
 
     var sameKeys = _.intersection(oldKeys, newKeys);
-    sameKeys.forEach(function (k) {
-      var childChanges = compare(path.concat(k), old[k], new_[k]);
-      changes = changes.concat(childChanges);
+    _.forEach(sameKeys, function (k) {
+        var childChanges = compare(path.concat(k), old[k], new_[k]);
+        changes = changes.concat(childChanges);
     });
 
     var delKeys = _.difference(oldKeys, newKeys);
-    delKeys.forEach(function (k) {
+    _.forEach(delKeys, function (k) {
       changes.push({ type: 'del', key: path.concat(k) });
     });
 
     var newKeys_ = _.difference(newKeys, oldKeys);
-    newKeys_.forEach(function (k) {
+    _.forEach(newKeys_, function (k) {
       changes.push(delCheck(
         { type: 'put', key: path.concat(k), value: new_[k] }));
     });
@@ -62,7 +62,7 @@ function apply(changes, target, modify) {
     clone = require("udc");
     obj = clone(target);
   }
-  changes.forEach(function (ch) {
+  _.forEach(changes, function (ch) {
     var ptr, keys, len;
     switch (ch.type) {
       case 'put':
@@ -70,7 +70,7 @@ function apply(changes, target, modify) {
         keys = ch.key;
         len = keys.length;
         if (len) {
-          keys.forEach(function (prop, i) {
+          _.forEach(keys, function (prop, i) {
             if (!(prop in ptr)) {
               ptr[prop] = {};
             }
@@ -91,7 +91,7 @@ function apply(changes, target, modify) {
         keys = ch.key;
         len = keys.length;
         if (len) {
-          keys.forEach(function (prop, i) {
+          _.forEach(keys, function (prop, i) {
             if (!(prop in ptr)) {
               ptr[prop] = {};
             }
