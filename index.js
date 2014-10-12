@@ -31,8 +31,8 @@ function compare(path, old, new_) {
 
     var sameKeys = _.intersection(oldKeys, newKeys);
     _.forEach(sameKeys, function (k) {
-        var childChanges = compare(path.concat(k), old[k], new_[k]);
-        changes = changes.concat(childChanges);
+      var childChanges = compare(path.concat(k), old[k], new_[k]);
+      changes = changes.concat(childChanges);
     });
 
     var delKeys = _.difference(oldKeys, newKeys);
