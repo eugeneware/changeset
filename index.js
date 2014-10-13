@@ -1,4 +1,8 @@
-var _ = require('underscore');
+var difference = require("lodash.difference");
+var intersection = require("lodash.intersection");
+var contains = require("lodash.contains");
+var objectKeys = Object.keys || require("lodash.keys");
+var forEach = Array.prototype.forEach || require("lodash.foreach");
 
 module.exports = diff;
 function diff(old, new_) {
@@ -23,25 +27,25 @@ function compare(path, old, new_) {
   var changes = [];
   if (old !== null && new_ !== null &&
       typeof old === 'object' &&
-      !_.contains(comparing, old)) {
+      !contains(comparing, old)) {
 
     comparing.push(old);
-    var oldKeys = _.keys(old);
-    var newKeys = _.keys(new_);
+    var oldKeys = objectKeys(old);
+    var newKeys = objectKeys(new_);
 
-    var sameKeys = _.intersection(oldKeys, newKeys);
-    _.forEach(sameKeys, function (k) {
+    var sameKeys = intersection(oldKeys, newKeys);
+    forEach.call(sameKeys, function (k) {
       var childChanges = compare(path.concat(k), old[k], new_[k]);
       changes = changes.concat(childChanges);
     });
 
-    var delKeys = _.difference(oldKeys, newKeys);
-    _.forEach(delKeys, function (k) {
+    var delKeys = difference(oldKeys, newKeys);
+    forEach.call(delKeys, function (k) {
       changes.push({ type: 'del', key: path.concat(k) });
     });
 
-    var newKeys_ = _.difference(newKeys, oldKeys);
-    _.forEach(newKeys_, function (k) {
+    var newKeys_ = difference(newKeys, oldKeys);
+    forEach.call(newKeys_, function (k) {
       changes.push(delCheck(
         { type: 'put', key: path.concat(k), value: new_[k] }));
     });
@@ -62,7 +66,7 @@ function apply(changes, target, modify) {
     clone = require("udc");
     obj = clone(target);
   }
-  _.forEach(changes, function (ch) {
+  forEach.call(changes, function (ch) {
     var ptr, keys, len;
     switch (ch.type) {
       case 'put':
@@ -70,7 +74,7 @@ function apply(changes, target, modify) {
         keys = ch.key;
         len = keys.length;
         if (len) {
-          _.forEach(keys, function (prop, i) {
+          forEach.call(keys, function (prop, i) {
             if (!(prop in ptr)) {
               ptr[prop] = {};
             }
@@ -91,7 +95,7 @@ function apply(changes, target, modify) {
         keys = ch.key;
         len = keys.length;
         if (len) {
-          _.forEach(keys, function (prop, i) {
+          forEach.call(keys, function (prop, i) {
             if (!(prop in ptr)) {
               ptr[prop] = {};
             }
