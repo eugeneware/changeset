@@ -216,4 +216,20 @@ describe('changeset', function () {
       expect(obj).to.equal('xxx');
       done();
     });
+
+  it('should be able to deal with incrementally built arrays', function(done) {
+    var obj = [];
+    var changeset = [
+      { type: 'put', key: [], value: [] },
+      { type: 'put', key: [ 0, 'make' ], value: 'Toyota' },
+      { type: 'put', key: [ 0, 'model' ], value: 'Camry' },
+      { type: 'put', key: [ 1, 'make' ], value: 'Toyota' },
+      { type: 'put', key: [ 1, 'model' ], value: 'Corolla' } ];
+    obj = diff.apply(changeset, obj, true);
+    expect(obj).to.deep.equals([
+      { make: 'Toyota', model: 'Camry' },
+      { make: 'Toyota', model: 'Corolla' }
+    ]);
+    done();
+  });
 });
