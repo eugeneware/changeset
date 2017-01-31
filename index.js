@@ -59,7 +59,7 @@ function apply(changes, target, modify) {
   if (modify) {
     obj = target;
   } else {
-    clone = require("udc");
+    clone = require('udc');
     obj = clone(target);
   }
   changes.forEach(function (ch) {
