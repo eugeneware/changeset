@@ -22,11 +22,11 @@
   "author": "Eugene Ware <eugene@noblesamurai.com>",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "chai": "~1.6.1",
-    "mocha": "~1.10.0"
+    "chai": "3.5.0",
+    "mocha": "3.2.0"
   },
   "dependencies": {
     "udc": "^1.0.0",
-    "underscore": "~1.4.4"
+    "underscore": "^1.8.3"
   }
 }
