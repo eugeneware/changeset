@@ -23,7 +23,7 @@
   "license": "BSD-3-Clause",
   "devDependencies": {
     "chai": "3.5.0",
-    "mocha": "3.2.0"
+    "mocha": "^5.2.0"
   },
   "dependencies": {
     "udc": "^1.0.0",

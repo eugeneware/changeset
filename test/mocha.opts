@@ -1,4 +1,3 @@
 --reporter spec
 --ui bdd
---growl
 --timeout 600000
