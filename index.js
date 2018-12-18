@@ -100,7 +100,7 @@ function apply(changes, target, modify) {
               ptr = ptr[prop];
             } else {
               if (Array.isArray(ptr)) {
-                ptr.splice(parseInt(prop), 1);
+                ptr.splice(parseInt(prop, 10), 1);
               } else {
                 delete ptr[prop];
               }
