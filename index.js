@@ -99,7 +99,11 @@ function apply(changes, target, modify) {
             if (i < len - 1) {
               ptr = ptr[prop];
             } else {
-              delete ptr[prop];
+              if (Array.isArray(ptr)) {
+                ptr.splice(parseInt(prop), 1);
+              } else {
+                delete ptr[prop];
+              }
             }
           });
         } else {
