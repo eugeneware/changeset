@@ -22,7 +22,7 @@ var comparing = [];
 function compare(path, old, new_) {
   var changes = [];
   if (old !== null && new_ !== null &&
-      typeof old === 'object' &&
+      typeof old === 'object' && typeof new_ === 'object' &&
       !_.contains(comparing, old)) {
 
     comparing.push(old);
