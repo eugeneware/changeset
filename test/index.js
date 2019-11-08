@@ -243,4 +243,12 @@ describe('changeset', function () {
     ]);
     done();
   });
+
+  it('should be able to diff from an object to a basic type', function() {
+    var a = {hello: {nested: 2}};
+    var b = {hello: 3};
+    var changeset = diff(a, b);
+    var b_ = diff.apply(changeset, a);
+    expect(b).to.deep.equals(b_);
+  });
 });
