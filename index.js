@@ -26,8 +26,8 @@ function compare(path, old, new_) {
       !_.contains(comparing, old)) {
 
     comparing.push(old);
-    var oldKeys = Object.keys(old);
-    var newKeys = Object.keys(new_);
+    var oldKeys = Object.keys(old).reverse();
+    var newKeys = Object.keys(new_).reverse();
 
     var sameKeys = _.intersection(oldKeys, newKeys);
     sameKeys.forEach(function (k) {

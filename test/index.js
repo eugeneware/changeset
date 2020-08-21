@@ -40,18 +40,18 @@ describe('changeset', function () {
       var changes = diff(a, b);
 
       expect(changes).to.deep.equal([
-        { type: 'put', key: ['name'], value: 'Susan' },
-        { type: 'put', key: ['number'], value: 43 },
-        { type: 'put', key: ['tags', '1'], value: 'tag4' },
-        { type: 'del', key: ['tags', '2'] },
+        { type: 'put', key: ['self'], value: b },
         { type: 'put', key: [ 'scores', 'someArray', '1' ], value: 'three' },
         { type: 'del', key: [ 'scores', 'someArray', '2' ] },
         { type: 'del', key: ['scores', 'tetris'] },
         { type: 'put', key: ['scores', 'zelda'], value: 3000 },
-        { type: 'put', key: ['self'], value: b },
+        { type: 'put', key: ['tags', '1'], value: 'tag4' },
+        { type: 'del', key: ['tags', '2'] },
+        { type: 'put', key: ['number'], value: 43 },
+        { type: 'put', key: ['name'], value: 'Susan' },
         { type: 'del', key: ['scoresAgain'], },
+        { type: 'put', key: ['friend'], value: a },
         { type: 'put', key: ['age'], value: 37 },
-        { type: 'put', key: ['friend'], value: a }
       ]);
 
       done();
@@ -242,5 +242,19 @@ describe('changeset', function () {
       { make: 'Toyota', model: 'Corolla' }
     ]);
     done();
+  });
+
+  it('should sort array deletions from end', function() {
+    const a = ['a', 'b', 'c', 'd', 'e'];
+    const b = ['f', 'g'];
+    const changes = diff(a, b);
+    const delKeys = changes
+        .filter(change => change.type === 'del')
+        .map(change => change.key[0]);
+
+    delKeys.reduce((prev, next) => {
+        expect(+prev).to.be.above(+next);
+        return next;
+    });
   });
 });
