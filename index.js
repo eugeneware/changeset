@@ -36,7 +36,7 @@ function compare(path, old, new_) {
     });
 
     var delKeys = _.difference(oldKeys, newKeys);
-    delKeys.forEach(function (k) {
+    delKeys.reverse().forEach(function (k) {
       changes.push({ type: 'del', key: path.concat(k) });
     });
 
