@@ -26,8 +26,8 @@ function compare(path, old, new_) {
       !_.contains(comparing, old)) {
 
     comparing.push(old);
-    var oldKeys = Object.keys(old).reverse();
-    var newKeys = Object.keys(new_).reverse();
+    var oldKeys = Object.keys(old);
+    var newKeys = Object.keys(new_);
 
     var sameKeys = _.intersection(oldKeys, newKeys);
     sameKeys.forEach(function (k) {
@@ -36,7 +36,7 @@ function compare(path, old, new_) {
     });
 
     var delKeys = _.difference(oldKeys, newKeys);
-    delKeys.forEach(function (k) {
+    delKeys.reverse().forEach(function (k) {
       changes.push({ type: 'del', key: path.concat(k) });
     });
 
