@@ -243,4 +243,13 @@ describe('changeset', function () {
     ]);
     done();
   });
+
+  it('should not allow prototype pollution', function(done) {
+    var changeset = [
+      { type: 'put', key: ['__proto__','polluted'], value: 'Yes! Its Polluted'}
+    ];
+    diff.apply(changeset, {}, true);
+    expect({}.polluted).to.not.equal('Yes! Its Polluted');
+    done();
+  })
 });

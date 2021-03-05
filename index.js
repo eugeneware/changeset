@@ -75,9 +75,9 @@ function apply(changes, target, modify) {
               ptr[prop] = {};
             }
 
-            if (i < len - 1) {
+            if (i < len - 1 && ptr.hasOwnProperty(prop)) {
               ptr = ptr[prop];
-            } else {
+            } else if (prop !== '__proto__') {
               ptr[prop] = ch.value;
             }
           });
@@ -101,7 +101,7 @@ function apply(changes, target, modify) {
             } else {
               if (Array.isArray(ptr)) {
                 ptr.splice(parseInt(prop, 10), 1);
-              } else {
+              } else if (ptr.hasOwnProperty(prop)) {
                 delete ptr[prop];
               }
             }
