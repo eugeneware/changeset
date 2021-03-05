@@ -77,7 +77,7 @@ function apply(changes, target, modify) {
 
             if (i < len - 1 && ptr.hasOwnProperty(prop)) {
               ptr = ptr[prop];
-            } else if (prop !== '__proto__') {
+            } else {
               ptr[prop] = ch.value;
             }
           });
